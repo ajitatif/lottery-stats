@@ -1,0 +1,22 @@
+create table milli_piyango_results (
+    oid varchar(16) primary key,
+    lottery_date date unique not null,
+    lottery_number int not null,
+    winner_city varchar(32) null,
+    lottery_type varchar(32) not null,
+    numbers varchar(32) not null,
+    numbers_ordered varchar(32) not null,
+    is_carried_over boolean not null,
+    carry_over_count int not null,
+    gross_cyprus decimal(15,2) not null,
+    carry_over_amount decimal(15,2),
+    total_columns_played int,
+    vat decimal(15,2),
+    total_amount decimal(15,2),
+    total_fortune_game_tax decimal(15,2),
+    amount_for_prize decimal(15,2),
+    biggest_prize decimal(15,2),
+    prize_carry_over_amount decimal(15,2),
+    winner_districts jsonb,
+    win_table jsonb
+);

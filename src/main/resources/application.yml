@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:6543/lottery
+    username: lottery
+    password: lottery
+  jpa:
+    hibernate:
+      ddl-auto: none
+---
+spring:
+  profiles.active: automated-tests
+  shell:
+    interactive:
+      enabled: false
