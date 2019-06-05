@@ -71,4 +71,7 @@ public class LotteryResult implements Serializable {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "lottery_oid")
     private Set<LotteryResultNumber> numberList = new HashSet<>();
+
+    @Column
+    private Integer wonAfterCarryOvers;
 }

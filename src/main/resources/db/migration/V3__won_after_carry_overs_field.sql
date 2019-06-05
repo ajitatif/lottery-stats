@@ -1,0 +1,1 @@
+alter table milli_piyango_result add column won_after_carry_overs int null;

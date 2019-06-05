@@ -1,5 +1,6 @@
 package org.turkisi.lotterystats.service;
 
+import org.glassfish.jersey.internal.guava.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -11,10 +12,7 @@ import org.turkisi.lotterystats.repository.LotteryResultRepository;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -51,6 +49,7 @@ public class LotteryResultService {
         if (!availableDates.isEmpty()) {
             availableDates.forEach(date -> resultList.add(saveMpiSayisalLotteryByDate(date)));
         }
+        postSaveProcessing();
         return resultList;
     }
 
@@ -61,6 +60,23 @@ public class LotteryResultService {
         LotteryResult lotteryResult = getLotteryResult(mpiLotteryResult);
 
         return repository.save(lotteryResult);
+    }
+
+    private void postSaveProcessing() {
+        logger.debug("Post Save Process started");
+        ArrayList<LotteryResult> list = Lists.newArrayList(repository.findAll());
+        list.sort(Comparator.comparing(LotteryResult::getLotteryDate).reversed());
+        for (int i = 0; i < list.size(); i++) {
+            if (i < list.size() - 1) {
+                LotteryResult current = list.get(i);
+                LotteryResult earlier = list.get(i + 1);
+                if (current.getCarryOverCount() == 0 && earlier.getCarryOverCount() > 0) {
+                    current.setWonAfterCarryOvers(earlier.getCarryOverCount());
+                }
+            }
+        }
+        repository.saveAll(list);
+        logger.debug("Post Save Process ended");
     }
 
     private LotteryResult getLotteryResult(MPILotteryResult mpiLotteryResult) {
