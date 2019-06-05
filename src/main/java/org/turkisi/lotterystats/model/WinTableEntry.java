@@ -1,17 +1,21 @@
 package org.turkisi.lotterystats.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
  * @author Gökalp Gürbüzer (gokalp.gurbuzer@yandex.com)
  */
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class WinTableEntry {
+@Builder
+@Getter
+public class WinTableEntry implements Serializable {
 
     private String oid;
     private BigDecimal winPerPerson;

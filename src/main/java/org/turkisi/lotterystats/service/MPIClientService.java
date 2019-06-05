@@ -13,7 +13,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import org.turkisi.lotterystats.dto.LotteryDateSelection;
 import org.turkisi.lotterystats.dto.MPILotteryResult;
 import org.turkisi.lotterystats.dto.MPILotteryResultResponse;
-import org.turkisi.lotterystats.model.LotteryResult;
 import org.turkisi.lotterystats.exception.UnexpectedResponseException;
 
 import java.io.IOException;
@@ -26,7 +25,7 @@ import java.util.stream.Collectors;
  * @author Gökalp Gürbüzer (gokalp.gurbuzer@yandex.com)
  */
 @Component
-public class MPIParserService {
+public class MPIClientService {
 
     private static final String MPI_RESULTS_BASE_URL = "http://mpi.gov.tr/sonuclar/";
     private static ObjectMapper objectMapper = new ObjectMapper();

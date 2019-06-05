@@ -8,7 +8,16 @@ spring:
       ddl-auto: none
 ---
 spring:
-  profiles.active: automated-tests
+  profiles: local
+logging:
+  level:
+    org.turkisi: DEBUG
+---
+spring:
+  profiles: automated-tests
+  datasource:
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    url: jdbc:tc:postgresql://localhost:6544/lottery
   shell:
     interactive:
       enabled: false

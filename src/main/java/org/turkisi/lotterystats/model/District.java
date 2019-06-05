@@ -1,18 +1,20 @@
 package org.turkisi.lotterystats.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
+import java.io.Serializable;
 
 /**
  * @author Gökalp Gürbüzer (gokalp.gurbuzer@yandex.com)
  */
-@Data
+@Builder
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class District {
+public class District implements Serializable {
     private Integer cityId;
     private String cityName;
     private Integer districtId;

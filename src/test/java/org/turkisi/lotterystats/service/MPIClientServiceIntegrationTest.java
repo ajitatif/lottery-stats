@@ -9,17 +9,18 @@ import org.turkisi.lotterystats.dto.MPILotteryResult;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  * @author Gökalp Gürbüzer (gokalp.gurbuzer@yandex.com)
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
-public class MPIParserServiceIntegrationTest {
+public class MPIClientServiceIntegrationTest {
 
     @Autowired
-    private MPIParserService parserService;
+    private MPIClientService parserService;
 
     @Test
     public void should_get_dates_from_milli_piyango() throws Exception {

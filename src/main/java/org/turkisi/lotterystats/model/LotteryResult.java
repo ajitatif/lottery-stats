@@ -6,24 +6,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Gökalp Gürbüzer (gokalp.gurbuzer@yandex.com)
  */
 @Entity
-@Table(name = "milli_piyango_results")
+@Table(name = "milli_piyango_result")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class LotteryResult {
+public class LotteryResult implements Serializable {
     @Id
     private String oid;
     @Column
@@ -38,7 +39,7 @@ public class LotteryResult {
     private String numbers;
     @Column
     private String numbersOrdered;
-    @Column
+    @Column(name = "is_carried_over")
     private Boolean carriedOver;
     @Column
     private Integer carryOverCount;
@@ -62,8 +63,12 @@ public class LotteryResult {
     private BigDecimal prizeCarryOverAmount;
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    private List<District> winnerDistricts;
+    private List<District> winnerDistricts = new ArrayList<>();
     @Type(type = "jsonb")
     @Column(columnDefinition = "jsonb")
-    private List<WinTableEntry> winTable;
+    private List<WinTableEntry> winTable = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "lottery_oid")
+    private Set<LotteryResultNumber> numberList = new HashSet<>();
 }

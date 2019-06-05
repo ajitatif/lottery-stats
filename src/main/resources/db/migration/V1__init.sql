@@ -1,4 +1,4 @@
-create table milli_piyango_results (
+create table milli_piyango_result (
     oid varchar(16) primary key,
     lottery_date date unique not null,
     lottery_number int not null,
